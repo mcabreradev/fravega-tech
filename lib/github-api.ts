@@ -1,9 +1,14 @@
 import axios from 'axios';
 
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
 const api = axios.create({
   baseURL: 'https://api.github.com',
   headers: {
-    'Accept': 'application/vnd.github.v3+json',
+    Authorization: `Bearer ${GITHUB_TOKEN}`,
+    "Content-Type": "application/json",
+    Accept: 'application/vnd.github.v3+json',
+    'User-Agent': 'Awesome-Octocat-App'
   },
 });
 
