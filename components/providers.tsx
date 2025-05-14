@@ -5,13 +5,13 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { useState } from "react"
 import { Toaster } from "sonner"
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({ children, dehydratedState }: { children: React.ReactNode, dehydratedState?: unknown }) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 60 * 1000, // 1 minute
+            staleTime: 60 * 1000 * 5, // 5 minutes
             retry: 1,
           },
         },
