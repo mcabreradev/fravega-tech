@@ -8,7 +8,6 @@ const api = axios.create({
     Authorization: `Bearer ${GITHUB_TOKEN}`,
     "Content-Type": "application/json",
     Accept: 'application/vnd.github.v3+json',
-    'User-Agent': 'Awesome-Octocat-App'
   },
 });
 
