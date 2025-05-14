@@ -2,12 +2,14 @@
 
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { fetchUsers, searchUsers, GithubUser } from "@/lib/github-api"
-import { UserCard } from "@/components/user-card"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { AlertCircle } from "lucide-react"
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
+
+import { fetchUsers, searchUsers, GithubUser } from "@/lib/github-api"
+import { UserCard } from "./user-card"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 export function UserSearch() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -33,8 +35,8 @@ export function UserSearch() {
   const error = usersQuery.error || searchResults.error
 
   // Get users from either query
-  const users: GithubUser[] = searchQuery 
-    ? (searchResults.data?.items || []) 
+  const users: GithubUser[] = searchQuery
+    ? (searchResults.data?.items || [])
     : (usersQuery.data || [])
 
   const handleSearch = (e: React.FormEvent) => {
