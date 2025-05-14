@@ -8,6 +8,9 @@ const nextConfig = {
     config.cache = false;
     return config;
   },
+  env: {
+    GITHUB_TOKEN: process.env.GITHUB_TOKEN,
+  },
 };
 
 module.exports = nextConfig;
