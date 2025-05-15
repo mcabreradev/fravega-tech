@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { ChevronLeft, MapPin, Link as LinkIcon, Twitter, Users, Building, Calendar } from "lucide-react"
 import { format } from "date-fns"
+
 import { PageLayout } from "@/components/layout/page-layout"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -12,13 +13,10 @@ import { Separator } from "@/components/ui/separator"
 import { Card, CardContent } from "@/components/ui/card"
 import { RepoCard } from "@/components/repo-card"
 import { LoadingSpinner } from "@/components/loading-spinner"
-import { useFavoritesStore } from "@/lib/favorites-store"
-import { fetchUserRepos, GithubUser, GithubRepo } from "@/lib/github"
 
-interface UserDetailContentProps {
-  username: string
-  userData: GithubUser
-}
+import { useFavoritesStore } from "@/lib/favorites-store"
+import { fetchUserRepos } from "@/lib/github"
+import { UserDetailContentProps, GithubRepo } from "@/types"
 
 export function UserDetailContent({ username, userData }: UserDetailContentProps) {
   const { isFavorite, toggleFavorite } = useFavoritesStore()

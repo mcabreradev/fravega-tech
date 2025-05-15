@@ -41,3 +41,21 @@ export interface FavoritesState {
   isFavorite: (username: string) => boolean;
   toggleFavorite: (username: string) => void;
 }
+
+export interface UserDetailContentProps {
+  username: string
+  userData: GithubUser
+}
+
+export interface UserCardProps {
+  user: GithubUser
+}
+
+export interface RepoCardProps {
+  repo: GithubRepo
+}
+
+export interface LoadingSpinnerProps {
+  className?: string
+  size?: number
+}

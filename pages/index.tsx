@@ -2,10 +2,12 @@ import { useState } from "react"
 import Head from "next/head"
 import { AlertCircle } from "lucide-react"
 import { useQuery } from "@tanstack/react-query"
-import { fetchUsers, searchUsers, GithubUser } from "@/lib/github"
 
-import { UserCard } from "@/features/user/user-card"
-import { UserSkeletonGrid } from "@/features/user/user-skeleton"
+import { fetchUsers, searchUsers } from "@/lib/github"
+import { GithubUser} from "@/types"
+
+import { UserCard } from "@/components/user-card"
+import { UserSkeletonGrid } from "@/components/user-skeleton"
 
 import { PageLayout } from "@/components/layout/page-layout"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"

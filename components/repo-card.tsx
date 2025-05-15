@@ -2,13 +2,9 @@
 
 import { formatDistanceToNow } from "date-fns"
 import { Star, GitBranch, Code } from "lucide-react"
-import { GithubRepo } from "@/lib/github"
+import { RepoCardProps } from "@/types"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-
-interface RepoCardProps {
-  repo: GithubRepo
-}
 
 export function RepoCard({ repo }: RepoCardProps) {
   return (

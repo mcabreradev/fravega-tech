@@ -2,15 +2,11 @@
 
 import Link from "next/link"
 import { Star, Users, GitBranch } from "lucide-react"
-import { GithubUser } from "@/lib/github"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { useFavoritesStore } from "@/lib/favorites-store"
-
-interface UserCardProps {
-  user: GithubUser
-}
+import { UserCardProps } from "@/types"
 
 export function UserCard({ user }: UserCardProps) {
   const { isFavorite, toggleFavorite } = useFavoritesStore()

@@ -1,9 +1,5 @@
 import { Loader2 } from "lucide-react"
-
-interface LoadingSpinnerProps {
-  className?: string
-  size?: number
-}
+import { LoadingSpinnerProps } from "@/types"
 
 export function LoadingSpinner({ className = "", size = 24 }: LoadingSpinnerProps) {
   return (

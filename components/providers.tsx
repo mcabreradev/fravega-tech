@@ -6,14 +6,17 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { useState } from "react"
 import { Toaster } from "sonner"
 
-export function Providers({ children, dehydratedState }: { children: React.ReactNode, dehydratedState?: unknown }) {
+export function Providers({ children }: { children: React.ReactNode }) {
+  const MINUTE = 1000 * 60;
+
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 60 * 1000 * 5, // 5 minutes
+            staleTime: MINUTE * 5, // 5 minutes
             retry: 1,
+            refetchOnWindowFocus: false,
           },
         },
       })
