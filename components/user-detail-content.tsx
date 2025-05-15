@@ -65,9 +65,6 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
     )
   }
 
-  console.log("User data:", userData)
-  console.log("User repos:", repos)
-
   return (
     <>
       <Head>
@@ -103,7 +100,7 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                     </div>
 
                     <Button
-                      className={`w-full ${isUserFavorite ? "bg-amber-500 hover:bg-amber-600" : ""}`}
+                      className={`${isUserFavorite ? "bg-amber-500 hover:bg-amber-600" : ""}`}
                       onClick={() => toggleFavorite(username)}
                     >
                       {isUserFavorite ? "Remove from Favorites" : "Add to Favorites"}
@@ -194,7 +191,7 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
               ) : (
                 <Card>
                   <CardContent className="p-6 text-center text-muted-foreground">
-                    This user doesn't have any public repositories yet.
+                    This user doesn&#39;t have any public repositories yet.
                   </CardContent>
                 </Card>
               )}
