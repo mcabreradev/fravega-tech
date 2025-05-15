@@ -3,10 +3,10 @@
 import Head from "next/head"
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
-import { ChevronLeft, MapPin, Link as LinkIcon, Twitter, Users, Building, Calendar } from "lucide-react"
+import { ChevronLeft, MapPin, Link as LinkIcon, Twitter, Users, Building, Calendar, Star } from "lucide-react"
 
 import { GithubUser } from "@/types"
-import { formatDate } from "@/lib/utils"
+import { formatDate, cn } from "@/lib/utils"
 
 
 import { PageLayout } from "@/components/layout/page-layout"
@@ -100,15 +100,41 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                     </div>
 
                     <Button
-                      className={`${isUserFavorite ? "bg-amber-500 hover:bg-amber-600" : ""}`}
+                       variant={isUserFavorite ? "default" : "outline"}
+                      size="sm"
+                      className={cn(isUserFavorite ? "dark:bg-amber-500 dark:hover:bg-amber-600 bg-stone-900 hover:bg-stone-950" : "")}
                       onClick={() => toggleFavorite(username)}
                     >
-                      {isUserFavorite ? "Remove from Favorites" : "Add to Favorites"}
+                      <Star className={`mr-1 h-4 w-4 ${isUserFavorite ? "fill-white" : ""}`} />
+                      {isUserFavorite ? "Favorited" : "Favorite"}
                     </Button>
 
                     {userData.bio && (
-                      <p className="text-sm">{userData.bio}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {userData.bio.length > 100 ? `${userData.bio.substring(0, 100)}...` : userData.bio}
+                      </p>
                     )}
+
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm text-muted-foreground">
+                        {userData.public_repos} public repositories
+                      </span>
+                      {userData.public_gists > 0 && (
+                        <span className="text-sm text-muted-foreground">
+                          · {userData.public_gists} gists
+                        </span>
+                      )}
+
+                      {userData.hireable && (
+                        <span className="text-sm text-green-500">
+                          · Available for hire
+                        </span>
+                      )}
+                    </div>
+
+                    <Separator className="w-full" />
+
+                    {/* Followers and following */}
 
                     <div className="flex justify-center space-x-4 text-sm text-muted-foreground">
                       <span className="flex items-center">
