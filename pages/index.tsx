@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button"
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
-  const [page, setPage] = useState(1)
+  const [page, _] = useState(1)
   const debouncedSearch = useDebounce(searchQuery, 500) // 500ms delay
 
   const usersQuery = useQuery({
