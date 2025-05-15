@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Head from "next/head"
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
@@ -16,36 +17,43 @@ import { Separator } from "@/components/ui/separator"
 import { Card, CardContent } from "@/components/ui/card"
 import { RepoCard } from "@/components/repo-card"
 import { LoadingSpinner } from "@/components/loading-spinner"
+import { Pagination } from "@/components/pagination"
 
 import { useFavoritesStore } from "@/lib/favorites-store"
 import { fetchUserDetails, fetchUserRepos } from "@/lib/github"
 import { UserDetailContentProps, GithubRepo } from "@/types"
 
 export function UserDetailContent({ username }: UserDetailContentProps) {
+  const [page, setPage] = useState(1)
   const { isFavorite, toggleFavorite } = useFavoritesStore()
   const isUserFavorite = isFavorite(username)
 
   const userQuery = useQuery({
     queryKey: ['userDetails', username],
     queryFn: () => fetchUserDetails(username),
+    staleTime: 5000,
   })
 
   const userRepos = useQuery({
-    queryKey: ["userRepos", username],
-    queryFn: () => fetchUserRepos(username),
-  })
+  queryKey: ["userRepos", username, page],
+  queryFn: () => fetchUserRepos(username, page),
+  placeholderData: [], // Use placeholder data while fetching new data
+  staleTime: 5000,
+})
 
   const userData = userQuery.data as GithubUser
   const userLoading = userQuery.isLoading || userQuery.isFetching
   const userError = userQuery.isError && userQuery.error instanceof Error
-  const userErrorMessage = userError ? (userQuery.error as Error).message : ""
 
   const repos = userRepos.data as GithubRepo[]
   const reposLoading = userRepos.isLoading || userRepos.isFetching
   const reposError = userRepos.isError && userRepos.error instanceof Error
-  const reposCount = userRepos.data?.length || 0
-  const reposErrorMessage = reposError ? (userRepos.error as Error).message : ""
 
+  const handlePageChange = (newPage: number) => {
+    console.log('Page changing to:', newPage)
+    setPage(newPage)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   if (userLoading || reposLoading) {
     return (
@@ -64,6 +72,8 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
       </PageLayout>
     )
   }
+
+  const hasMore = repos?.length === 10
 
   return (
     <>
@@ -221,6 +231,12 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                   </CardContent>
                 </Card>
               )}
+
+              <Pagination
+                currentPage={page}
+                hasMore={hasMore}
+                isLoading={reposLoading}
+                onPageChange={handlePageChange} />
             </div>
           </div>
         </div>

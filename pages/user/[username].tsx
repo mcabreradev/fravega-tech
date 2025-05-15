@@ -6,8 +6,6 @@ import { Providers } from "@/components/providers"
 import { UserDetailContent } from "@/components/user-detail-content"
 
 export default function UserDetail({ username, userData }: UserDetailProps) {
-  console.log("UserDetail component rendered with username:", username);
-  console.log("User data:", userData);
   return (
     <Providers>
       <UserDetailContent username={username} userData={userData} />
@@ -22,8 +20,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 try {
   // First fetch the data
   const userDetails = await fetchUserDetails(username)
-
-  console.log("Fetched user data:", userDetails)
 
   // Manually set the data in the cache
   queryClient.setQueryData(['userDetails', username], userDetails)
