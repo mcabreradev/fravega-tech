@@ -32,7 +32,6 @@ export default function Home() {
     queryKey: ["search", debouncedSearch, page],
     queryFn: () => searchUsers(debouncedSearch, page),
     enabled: !!debouncedSearch, // Only search if there's a query
-    staleTime: 1000, // Keeps previous data for 5 seconds
   })
 
   const isLoading = usersQuery.isLoading || searchResults.isLoading
