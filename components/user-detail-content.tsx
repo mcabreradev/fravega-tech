@@ -65,23 +65,23 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
                       <AvatarImage src={userData.avatar_url} alt={userData.login} />
                       <AvatarFallback>{userData.login.substring(0, 2).toUpperCase()}</AvatarFallback>
                     </Avatar>
-                    
+
                     <div className="space-y-1">
                       <h2 className="text-2xl font-bold">{userData.name || userData.login}</h2>
                       <p className="text-muted-foreground">@{userData.login}</p>
                     </div>
 
-                    <Button 
+                    <Button
                       className={`w-full ${isUserFavorite ? "bg-amber-500 hover:bg-amber-600" : ""}`}
                       onClick={() => toggleFavorite(username)}
                     >
                       {isUserFavorite ? "Remove from Favorites" : "Add to Favorites"}
                     </Button>
-                    
+
                     {userData.bio && (
                       <p className="text-sm">{userData.bio}</p>
                     )}
-                    
+
                     <div className="flex justify-center space-x-4 text-sm text-muted-foreground">
                       <span className="flex items-center">
                         <Users className="mr-1 h-4 w-4" />
@@ -90,9 +90,9 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
                       <span>·</span>
                       <span>{userData.following} following</span>
                     </div>
-                    
+
                     <Separator />
-                    
+
                     <div className="space-y-2 w-full text-left">
                       {userData.company && (
                         <div className="flex items-center text-sm">
@@ -100,20 +100,20 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
                           <span>{userData.company}</span>
                         </div>
                       )}
-                      
+
                       {userData.location && (
                         <div className="flex items-center text-sm">
                           <MapPin className="mr-2 h-4 w-4" />
                           <span>{userData.location}</span>
                         </div>
                       )}
-                      
+
                       {userData.blog && (
                         <div className="flex items-center text-sm">
                           <LinkIcon className="mr-2 h-4 w-4" />
-                          <a 
-                            href={userData.blog.startsWith('http') ? userData.blog : `https://${userData.blog}`} 
-                            target="_blank" 
+                          <a
+                            href={userData.blog.startsWith('http') ? userData.blog : `https://${userData.blog}`}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-500 hover:underline truncate"
                           >
@@ -121,13 +121,13 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
                           </a>
                         </div>
                       )}
-                      
+
                       {userData.twitter_username && (
                         <div className="flex items-center text-sm">
                           <Twitter className="mr-2 h-4 w-4" />
-                          <a 
-                            href={`https://twitter.com/${userData.twitter_username}`} 
-                            target="_blank" 
+                          <a
+                            href={`https://twitter.com/${userData.twitter_username}`}
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-500 hover:underline"
                           >
@@ -135,7 +135,7 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
                           </a>
                         </div>
                       )}
-                      
+
                       {userData.created_at && (
                         <div className="flex items-center text-sm">
                           <Calendar className="mr-2 h-4 w-4" />
@@ -151,7 +151,7 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
             {/* Main content with repositories */}
             <div className="md:col-span-2 space-y-6">
               <h2 className="text-xl font-semibold">Repositories</h2>
-              
+
               {reposLoading ? (
                 <LoadingSpinner className="py-8" />
               ) : repos.length > 0 ? (

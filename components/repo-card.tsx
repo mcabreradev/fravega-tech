@@ -15,10 +15,10 @@ export function RepoCard({ repo }: RepoCardProps) {
     <Card className="overflow-hidden transition-all hover:border-primary/50 hover:shadow-md">
       <CardHeader className="p-4">
         <CardTitle className="flex items-start justify-between">
-          <a 
-            href={repo.html_url} 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href={repo.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-lg font-semibold hover:underline"
           >
             {repo.name}
