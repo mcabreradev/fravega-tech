@@ -18,26 +18,22 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
   const [page, setPage] = useState(1)
 
-  // Query for initial users list
   const usersQuery = useQuery({
     queryKey: ["users", page],
     queryFn: () => fetchUsers(page),
     enabled: !searchQuery, // Only fetch if no search query
   })
 
-  // Query for search results
   const searchResults = useQuery({
     queryKey: ["search", searchQuery, page],
     queryFn: () => searchUsers(searchQuery, page),
     enabled: !!searchQuery, // Only search if there's a query
   })
 
-  // Combine query states
   const isLoading = usersQuery.isLoading || searchResults.isLoading
   const isError = usersQuery.isError || searchResults.isError
   const error = usersQuery.error || searchResults.error
 
-  // Get users from either query
   const users: GithubUser[] = searchQuery
     ? (searchResults.data?.items || [])
     : (usersQuery.data || [])
