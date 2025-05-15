@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next"
-import { GithubUser, fetchUserDetails } from "@/lib/github-api"
+import { GithubUser, fetchUserDetails } from "@/lib/github"
 import { Providers as ClientProviders } from "@/components/providers"
 import { UserDetailContent } from "@/components/user-detail-content"
 

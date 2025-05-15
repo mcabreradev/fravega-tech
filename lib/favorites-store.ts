@@ -2,13 +2,8 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { toast } from "sonner";
 
-interface FavoritesState {
-  favorites: string[];
-  addFavorite: (username: string) => void;
-  removeFavorite: (username: string) => void;
-  isFavorite: (username: string) => boolean;
-  toggleFavorite: (username: string) => void;
-}
+import { FavoritesState } from '@/types';
+
 
 export const useFavoritesStore = create<FavoritesState>()(
   persist(

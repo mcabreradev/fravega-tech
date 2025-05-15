@@ -13,7 +13,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { RepoCard } from "@/components/repo-card"
 import { LoadingSpinner } from "@/components/loading-spinner"
 import { useFavoritesStore } from "@/lib/favorites-store"
-import { fetchUserRepos, GithubUser, GithubRepo } from "@/lib/github-api"
+import { fetchUserRepos, GithubUser, GithubRepo } from "@/lib/github"
 
 interface UserDetailContentProps {
   username: string

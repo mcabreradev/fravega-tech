@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { AlertCircle } from "lucide-react"
 
-import { fetchUsers, searchUsers, GithubUser } from "@/lib/github-api"
+import { fetchUsers, searchUsers, GithubUser } from "@/lib/github"
 import { UserCard } from "./user-card"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
