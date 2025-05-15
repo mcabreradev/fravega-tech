@@ -24,7 +24,7 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
   const { isFavorite, toggleFavorite } = useFavoritesStore()
   const isUserFavorite = isFavorite(username)
 
-  const { data: repos, isLoading: reposLoading } = useQuery({
+  const { data: repos, isLoading: reposLoading, error } = useQuery({
     queryKey: ["userRepos", username],
     queryFn: () => fetchUserRepos(username),
     initialData: [],
@@ -35,6 +35,47 @@ export function UserDetailContent({ username, userData }: UserDetailContentProps
     const date = new Date(dateString)
     if (isNaN(date.getTime())) return dateString
     return format(date, "MMM dd, yyyy")
+  }
+
+  console.log("User repos:", repos)
+
+  const formatFollowers = (count: number) => {
+    if (count > 1000) {
+      return `${(count / 1000).toFixed(1)}k`
+    }
+    return count
+  }
+  const formatFollowing = (count: number) => {
+    if (count > 1000) {
+      return `${(count / 1000).toFixed(1)}k`
+    }
+    return count
+  }
+  const formatRepoCount = (count: number) => {
+    if (count > 1000) {
+      return `${(count / 1000).toFixed(1)}k`
+    }
+    return count
+  }
+  const formatStars = (count: number) => {
+    if (count > 1000) {
+      return `${(count / 1000).toFixed(1)}k`
+    }
+    return count
+  }
+  const formatForks = (count: number) => {
+    if (count > 1000) {
+      return `${(count / 1000).toFixed(1)}k`
+    }
+    return count
+  }
+
+  if (error) {
+    return (
+      <PageLayout>
+        Failed to load user data. Please try again later
+      </PageLayout>
+    )
   }
 
   return (

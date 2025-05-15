@@ -66,5 +66,6 @@ export const fetchUserDetails = async (username: string): Promise<GithubUser> =>
 
 export const fetchUserRepos = async (username: string, page = 1, perPage = 10): Promise<GithubRepo[]> => {
   const response = await api.get<GithubRepo[]>(`/users/${username}/repos?page=${page}&per_page=${perPage}&sort=updated`);
+  console.log("User repos:", response);
   return response.data;
 };
