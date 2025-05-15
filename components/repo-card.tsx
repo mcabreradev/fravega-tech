@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { formatDistanceToNow } from "date-fns"
-import { Star, GitBranch, Code, Eye } from "lucide-react"
-import { RepoCardProps } from "@/types"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { formatDistanceToNow } from 'date-fns'
+import { Star, GitBranch, Code, Eye } from 'lucide-react'
+import { RepoCardProps } from '@/types'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 
 export function RepoCard({ repo }: RepoCardProps) {
   return (

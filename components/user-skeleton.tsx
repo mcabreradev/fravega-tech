@@ -1,5 +1,5 @@
-import { Skeleton } from "@/components/ui/skeleton"
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { Skeleton } from '@/components/ui/skeleton'
+import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 
 export function UserSkeleton() {
   return (
@@ -28,9 +28,11 @@ export function UserSkeleton() {
 export function UserSkeletonGrid() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {Array(6).fill(0).map((_, i) => (
-        <UserSkeleton key={i} />
-      ))}
+      {Array(6)
+        .fill(0)
+        .map((_, i) => (
+          <UserSkeleton key={i} />
+        ))}
     </div>
   )
 }

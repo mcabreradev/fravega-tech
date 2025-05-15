@@ -1,35 +1,35 @@
-import { useState } from "react"
-import Head from "next/head"
-import { AlertCircle } from "lucide-react"
-import { useQuery } from "@tanstack/react-query"
+import { useState } from 'react'
+import Head from 'next/head'
+import { AlertCircle } from 'lucide-react'
+import { useQuery } from '@tanstack/react-query'
 
-import { fetchUsers, searchUsers } from "@/lib/github"
-import { GithubUser} from "@/types"
-import { useDebounce } from "@/hooks/use-debounce"
+import { fetchUsers, searchUsers } from '@/lib/github'
+import { GithubUser } from '@/types'
+import { useDebounce } from '@/hooks/use-debounce'
 
-import { UserCard } from "@/components/user-card"
-import { UserSkeletonGrid } from "@/components/user-skeleton"
+import { UserCard } from '@/components/user-card'
+import { UserSkeletonGrid } from '@/components/user-skeleton'
 
-import { PageLayout } from "@/components/layout/page-layout"
-import { Pagination } from "@/components/pagination"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
+import { PageLayout } from '@/components/layout/page-layout'
+import { Pagination } from '@/components/pagination'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState('')
   const [page, setPage] = useState(1)
   const debouncedSearch = useDebounce(searchQuery, 500) // 500ms delay
 
   const usersQuery = useQuery({
-    queryKey: ["users", page],
+    queryKey: ['users', page],
     queryFn: () => fetchUsers(page),
     enabled: !debouncedSearch, // Only fetch if no search query
     staleTime: 1000, // Keeps previous data for 5 seconds
   })
 
   const searchResults = useQuery({
-    queryKey: ["search", debouncedSearch, page],
+    queryKey: ['search', debouncedSearch, page],
     queryFn: () => searchUsers(debouncedSearch, page),
     enabled: !!debouncedSearch, // Only search if there's a query
   })
@@ -39,8 +39,8 @@ export default function Home() {
   const error = usersQuery.error || searchResults.error
 
   const users: GithubUser[] = debouncedSearch
-    ? (searchResults.data?.items || [])
-    : (usersQuery.data || [])
+    ? searchResults.data?.items || []
+    : usersQuery.data || []
 
   // Prevent form submission as we're using debounced search
   const handleSearch = (e: React.FormEvent) => {
@@ -70,12 +70,12 @@ export default function Home() {
     return (
       <PageLayout>
         <Alert variant="destructive">
-            <AlertCircle className="h-4 w-4" />
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>
-              {error instanceof Error ? error.message : "Failed to fetch users. Please try again."}
-            </AlertDescription>
-          </Alert>
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>
+            {error instanceof Error ? error.message : 'Failed to fetch users. Please try again.'}
+          </AlertDescription>
+        </Alert>
       </PageLayout>
     )
   }
@@ -110,7 +110,7 @@ export default function Home() {
             </div>
           </form>
 
-          { users.length > 0 ? (
+          {users.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {users.map((user) => (
                 <UserCard key={user.id} user={user} />

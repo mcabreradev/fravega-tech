@@ -1,27 +1,35 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import Head from "next/head"
-import { useQuery } from "@tanstack/react-query"
-import Link from "next/link"
-import { ChevronLeft, MapPin, Link as LinkIcon, Twitter, Users, Building, Calendar, Star } from "lucide-react"
+import { useState } from 'react'
+import Head from 'next/head'
+import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+import {
+  ChevronLeft,
+  MapPin,
+  Link as LinkIcon,
+  Twitter,
+  Users,
+  Building,
+  Calendar,
+  Star,
+} from 'lucide-react'
 
-import { GithubUser } from "@/types"
-import { formatDate, cn } from "@/lib/utils"
+import { GithubUser } from '@/types'
+import { formatDate, cn } from '@/lib/utils'
 
+import { PageLayout } from '@/components/layout/page-layout'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Separator } from '@/components/ui/separator'
+import { Card, CardContent } from '@/components/ui/card'
+import { RepoCard } from '@/components/repo-card'
+import { LoadingSpinner } from '@/components/loading-spinner'
+import { Pagination } from '@/components/pagination'
 
-import { PageLayout } from "@/components/layout/page-layout"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { Card, CardContent } from "@/components/ui/card"
-import { RepoCard } from "@/components/repo-card"
-import { LoadingSpinner } from "@/components/loading-spinner"
-import { Pagination } from "@/components/pagination"
-
-import { useFavoritesStore } from "@/lib/favorites-store"
-import { fetchUserDetails, fetchUserRepos } from "@/lib/github"
-import { UserDetailContentProps, GithubRepo } from "@/types"
+import { useFavoritesStore } from '@/lib/favorites-store'
+import { fetchUserDetails, fetchUserRepos } from '@/lib/github'
+import { UserDetailContentProps, GithubRepo } from '@/types'
 
 export function UserDetailContent({ username }: UserDetailContentProps) {
   const [page, setPage] = useState(1)
@@ -35,11 +43,11 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
   })
 
   const userRepos = useQuery({
-  queryKey: ["userRepos", username, page],
-  queryFn: () => fetchUserRepos(username, page),
-  placeholderData: [], // Use placeholder data while fetching new data
-  staleTime: 5000,
-})
+    queryKey: ['userRepos', username, page],
+    queryFn: () => fetchUserRepos(username, page),
+    placeholderData: [], // Use placeholder data while fetching new data
+    staleTime: 5000,
+  })
 
   const userData = userQuery.data as GithubUser
   const userLoading = userQuery.isLoading || userQuery.isFetching
@@ -66,11 +74,7 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
   }
 
   if (userError || reposError) {
-    return (
-      <PageLayout>
-        Failed to load user data. Please try again later
-      </PageLayout>
-    )
+    return <PageLayout>Failed to load user data. Please try again later</PageLayout>
   }
 
   const hasMore = repos?.length === 10
@@ -101,7 +105,9 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                   <div className="flex flex-col items-center text-center space-y-4">
                     <Avatar className="h-32 w-32 mt-4 border-4 border-background">
                       <AvatarImage src={userData.avatar_url} alt={userData.login} />
-                      <AvatarFallback>{userData.login.substring(0, 2).toUpperCase()}</AvatarFallback>
+                      <AvatarFallback>
+                        {userData.login.substring(0, 2).toUpperCase()}
+                      </AvatarFallback>
                     </Avatar>
 
                     <div className="space-y-1">
@@ -110,18 +116,24 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                     </div>
 
                     <Button
-                       variant={isUserFavorite ? "default" : "outline"}
+                      variant={isUserFavorite ? 'default' : 'outline'}
                       size="sm"
-                      className={cn(isUserFavorite ? "dark:bg-amber-500 dark:hover:bg-amber-600 bg-stone-900 hover:bg-stone-950" : "")}
+                      className={cn(
+                        isUserFavorite
+                          ? 'dark:bg-amber-500 dark:hover:bg-amber-600 bg-stone-900 hover:bg-stone-950'
+                          : ''
+                      )}
                       onClick={() => toggleFavorite(username)}
                     >
-                      <Star className={`mr-1 h-4 w-4 ${isUserFavorite ? "fill-white" : ""}`} />
-                      {isUserFavorite ? "Favorited" : "Favorite"}
+                      <Star className={`mr-1 h-4 w-4 ${isUserFavorite ? 'fill-white' : ''}`} />
+                      {isUserFavorite ? 'Favorited' : 'Favorite'}
                     </Button>
 
                     {userData.bio && (
                       <p className="text-sm text-muted-foreground">
-                        {userData.bio.length > 100 ? `${userData.bio.substring(0, 100)}...` : userData.bio}
+                        {userData.bio.length > 100
+                          ? `${userData.bio.substring(0, 100)}...`
+                          : userData.bio}
                       </p>
                     )}
 
@@ -136,9 +148,7 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                       )}
 
                       {userData.hireable && (
-                        <span className="text-sm text-green-500">
-                          · Available for hire
-                        </span>
+                        <span className="text-sm text-green-500">· Available for hire</span>
                       )}
                     </div>
 
@@ -176,7 +186,11 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                         <div className="flex items-center text-sm">
                           <LinkIcon className="mr-2 h-4 w-4" />
                           <a
-                            href={userData.blog.startsWith('http') ? userData.blog : `https://${userData.blog}`}
+                            href={
+                              userData.blog.startsWith('http')
+                                ? userData.blog
+                                : `https://${userData.blog}`
+                            }
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-500 hover:underline truncate"
@@ -236,7 +250,8 @@ export function UserDetailContent({ username }: UserDetailContentProps) {
                 currentPage={page}
                 hasMore={hasMore}
                 isLoading={reposLoading}
-                onPageChange={handlePageChange} />
+                onPageChange={handlePageChange}
+              />
             </div>
           </div>
         </div>

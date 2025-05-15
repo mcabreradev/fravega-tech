@@ -1,19 +1,19 @@
 export interface GithubUser {
-  id: number;
-  login: string;
-  avatar_url: string;
-  html_url: string;
-  name: string | null;
-  bio: string | null;
-  public_repos: number;
-  followers: number;
-  following: number;
-  created_at: string;
-  company: string | null;
-  location: string | null;
-  blog: string | null;
-  email: string | null;
-  twitter_username: string | null;
+  id: number
+  login: string
+  avatar_url: string
+  html_url: string
+  name: string | null
+  bio: string | null
+  public_repos: number
+  followers: number
+  following: number
+  created_at: string
+  company: string | null
+  location: string | null
+  blog: string | null
+  email: string | null
+  twitter_username: string | null
   node_id: string
   gravatar_id: string
   url: string
@@ -148,17 +148,17 @@ export interface Permissions {
 }
 
 export interface GithubSearchResults {
-  total_count: number;
-  incomplete_results: boolean;
-  items: GithubUser[];
+  total_count: number
+  incomplete_results: boolean
+  items: GithubUser[]
 }
 
 export interface FavoritesState {
-  favorites: string[];
-  addFavorite: (username: string) => void;
-  removeFavorite: (username: string) => void;
-  isFavorite: (username: string) => boolean;
-  toggleFavorite: (username: string) => void;
+  favorites: string[]
+  addFavorite: (username: string) => void
+  removeFavorite: (username: string) => void
+  isFavorite: (username: string) => boolean
+  toggleFavorite: (username: string) => void
 }
 
 export interface UserDetailContentProps {

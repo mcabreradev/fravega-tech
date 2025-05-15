@@ -5,9 +5,9 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   webpack: (config) => {
-    config.cache = false;
-    return config;
-  }
-};
+    config.cache = false
+    return config
+  },
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

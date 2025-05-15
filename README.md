@@ -15,6 +15,7 @@ A modern web application built with Next.js that allows you to explore GitHub us
 ## Prerequisites
 
 Before you begin, ensure you have the following installed:
+
 - Node.js (v18.0.0 or higher)
 - pnpm (v8.0.0 or higher)
 - Git
@@ -40,17 +41,20 @@ Before you begin, ensure you have the following installed:
 ## Getting Started
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/mcabreradev/fravega-tech.git
    cd fravega-tech
    ```
 
 2. Install dependencies:
+
    ```bash
    pnpm install
    ```
 
 3. Start the development server:
+
    ```bash
    pnpm dev
    ```
@@ -84,24 +88,28 @@ Before you begin, ensure you have the following installed:
 ## Features in Detail
 
 ### User Search
+
 - Real-time search with debouncing
 - Displays user cards with essential information
 - Error handling for failed searches
 - Pagination support for search results
 
 ### User Profiles
+
 - Comprehensive user information display
 - Repository list with sorting and filtering
 - Social links and user metadata
 - Repository statistics and language breakdown
 
 ### Favorites System
+
 - Local storage-based favorites management
 - Add/remove favorites with one click
 - Persistent across sessions
 - Sync state across tabs
 
 ### Theme Support
+
 - System-based theme detection
 - Manual theme toggle
 - Smooth theme transitions
@@ -110,6 +118,7 @@ Before you begin, ensure you have the following installed:
 ## API Rate Limiting
 
 The GitHub API has rate limiting:
+
 - Unauthenticated requests: 60 requests per hour
 - Authenticated requests: 5,000 requests per hour
 
@@ -152,10 +161,12 @@ To avoid rate limiting, set up your GitHub token as described in the Environment
 ### Common Issues
 
 1. **Rate Limiting**
+
    - Error: "API rate limit exceeded"
    - Solution: Set up a GitHub token as described in Environment Setup
 
 2. **Build Errors**
+
    - Error: "Module not found"
    - Solution: Run `pnpm install` to ensure all dependencies are installed
 
@@ -172,12 +183,14 @@ pnpm type-check
 ```
 
 This command:
+
 - Runs the TypeScript compiler in type-checking mode
 - Checks all TypeScript files in the project
 - Reports any type errors found
 - Does not generate any JavaScript output files
 
 It's recommended to:
+
 - Run type checking before committing changes
 - Include type checking in your CI/CD pipeline
 - Fix any type errors before merging code
@@ -185,9 +198,11 @@ It's recommended to:
 ### Common Type Issues
 
 1. Missing type declarations for imported modules
+
    - Solution: Install appropriate `@types/*` packages
 
 2. Incompatible prop types in React components
+
    - Solution: Check component prop interfaces and make sure they match usage
 
 3. Incorrect generic type parameters
