@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { useFavoritesStore } from "@/lib/favorites-store"
 import { UserCardProps } from "@/types"
+import { cn } from "@/lib/utils"
 
 export function UserCard({ user }: UserCardProps) {
   const { isFavorite, toggleFavorite } = useFavoritesStore()
@@ -47,7 +48,7 @@ export function UserCard({ user }: UserCardProps) {
         <Button
           variant={isUserFavorite ? "default" : "outline"}
           size="sm"
-          className={isUserFavorite ? "bg-amber-500 hover:bg-amber-600" : ""}
+          className={cn(isUserFavorite ? "dark:bg-amber-500 dark:hover:bg-amber-600 bg-stone-900 hover:bg-stone-950" : "")}
           onClick={() => toggleFavorite(user.login)}
         >
           <Star className={`mr-1 h-4 w-4 ${isUserFavorite ? "fill-white" : ""}`} />
