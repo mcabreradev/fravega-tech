@@ -15,18 +15,14 @@ export function Pagination({
   onPageChange
 }: PaginationProps) {
   const handlePrevPage = () => {
-    console.log("Prev clicked, current page:", currentPage)
     if (currentPage > 1) {
       const newPage = currentPage - 1
-      console.log("Calling onPageChange with:", newPage)
       onPageChange(newPage)
     }
   }
 
   const handleNextPage = () => {
-    console.log("Next clicked, current page:", currentPage)
     const newPage = currentPage + 1
-    console.log("Calling onPageChange with:", newPage)
     onPageChange(newPage)
   }
 

@@ -49,10 +49,8 @@ export default function Home() {
   }
 
   const handlePageChange = (newPage: number) => {
-    console.log("Page changed to:", newPage)
     if (page !== newPage) {
       setPage(newPage)
-      // Scroll to top after state update
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
