@@ -4,7 +4,10 @@ import Head from "next/head"
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
 import { ChevronLeft, MapPin, Link as LinkIcon, Twitter, Users, Building, Calendar } from "lucide-react"
-import { format } from "date-fns"
+
+import { GithubUser } from "@/types"
+import { formatDate } from "@/lib/utils"
+
 
 import { PageLayout } from "@/components/layout/page-layout"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -15,66 +18,55 @@ import { RepoCard } from "@/components/repo-card"
 import { LoadingSpinner } from "@/components/loading-spinner"
 
 import { useFavoritesStore } from "@/lib/favorites-store"
-import { fetchUserRepos } from "@/lib/github"
+import { fetchUserDetails, fetchUserRepos } from "@/lib/github"
 import { UserDetailContentProps, GithubRepo } from "@/types"
 
-export function UserDetailContent({ username, userData }: UserDetailContentProps) {
+export function UserDetailContent({ username }: UserDetailContentProps) {
   const { isFavorite, toggleFavorite } = useFavoritesStore()
   const isUserFavorite = isFavorite(username)
 
-  const { data: repos, isLoading: reposLoading, error } = useQuery({
-    queryKey: ["userRepos", username],
-    queryFn: () => fetchUserRepos(username),
-    initialData: [],
+  const userQuery = useQuery({
+    queryKey: ['userDetails', username],
+    queryFn: () => fetchUserDetails(username),
   })
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return ""
-    const date = new Date(dateString)
-    if (isNaN(date.getTime())) return dateString
-    return format(date, "MMM dd, yyyy")
+  const userRepos = useQuery({
+    queryKey: ["userRepos", username],
+    queryFn: () => fetchUserRepos(username),
+  })
+
+  const userData = userQuery.data as GithubUser
+  const userLoading = userQuery.isLoading || userQuery.isFetching
+  const userError = userQuery.isError && userQuery.error instanceof Error
+  const userErrorMessage = userError ? (userQuery.error as Error).message : ""
+
+  const repos = userRepos.data as GithubRepo[]
+  const reposLoading = userRepos.isLoading || userRepos.isFetching
+  const reposError = userRepos.isError && userRepos.error instanceof Error
+  const reposCount = userRepos.data?.length || 0
+  const reposErrorMessage = reposError ? (userRepos.error as Error).message : ""
+
+
+  if (userLoading || reposLoading) {
+    return (
+      <PageLayout>
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <LoadingSpinner />
+        </div>
+      </PageLayout>
+    )
   }
 
-  console.log("User repos:", repos)
-
-  const formatFollowers = (count: number) => {
-    if (count > 1000) {
-      return `${(count / 1000).toFixed(1)}k`
-    }
-    return count
-  }
-  const formatFollowing = (count: number) => {
-    if (count > 1000) {
-      return `${(count / 1000).toFixed(1)}k`
-    }
-    return count
-  }
-  const formatRepoCount = (count: number) => {
-    if (count > 1000) {
-      return `${(count / 1000).toFixed(1)}k`
-    }
-    return count
-  }
-  const formatStars = (count: number) => {
-    if (count > 1000) {
-      return `${(count / 1000).toFixed(1)}k`
-    }
-    return count
-  }
-  const formatForks = (count: number) => {
-    if (count > 1000) {
-      return `${(count / 1000).toFixed(1)}k`
-    }
-    return count
-  }
-
-  if (error) {
+  if (userError || reposError) {
     return (
       <PageLayout>
         Failed to load user data. Please try again later
       </PageLayout>
     )
   }
+
+  console.log("User data:", userData)
+  console.log("User repos:", repos)
 
   return (
     <>
