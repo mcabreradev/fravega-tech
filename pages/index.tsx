@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 
 import { fetchUsers, searchUsers } from "@/lib/github"
 import { GithubUser} from "@/types"
+import { useDebounce } from "@/hooks/use-debounce"
 
 import { UserCard } from "@/components/user-card"
 import { UserSkeletonGrid } from "@/components/user-skeleton"
@@ -17,30 +18,31 @@ import { Button } from "@/components/ui/button"
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("")
   const [page, setPage] = useState(1)
+  const debouncedSearch = useDebounce(searchQuery, 500) // 500ms delay
 
   const usersQuery = useQuery({
     queryKey: ["users", page],
     queryFn: () => fetchUsers(page),
-    enabled: !searchQuery, // Only fetch if no search query
+    enabled: !debouncedSearch, // Only fetch if no search query
   })
 
   const searchResults = useQuery({
-    queryKey: ["search", searchQuery, page],
-    queryFn: () => searchUsers(searchQuery, page),
-    enabled: !!searchQuery, // Only search if there's a query
+    queryKey: ["search", debouncedSearch, page],
+    queryFn: () => searchUsers(debouncedSearch, page),
+    enabled: !!debouncedSearch, // Only search if there's a query
   })
 
   const isLoading = usersQuery.isLoading || searchResults.isLoading
   const isError = usersQuery.isError || searchResults.isError
   const error = usersQuery.error || searchResults.error
 
-  const users: GithubUser[] = searchQuery
+  const users: GithubUser[] = debouncedSearch
     ? (searchResults.data?.items || [])
     : (usersQuery.data || [])
 
+  // Prevent form submission as we're using debounced search
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    setPage(1)
   }
 
   return (
