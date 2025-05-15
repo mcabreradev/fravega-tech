@@ -1,19 +1,14 @@
 import { GetServerSideProps } from "next"
-import { GithubUser } from "@/types"
+import { UserDetailProps } from "@/types"
 import { fetchUserDetails } from "@/lib/github"
-import { Providers as ClientProviders } from "@/components/providers"
+import { Providers } from "@/components/providers"
 import { UserDetailContent } from "@/components/user-detail-content"
-
-interface UserDetailProps {
-  username: string
-  userData: GithubUser
-}
 
 export default function UserDetail({ username, userData }: UserDetailProps) {
   return (
-    <ClientProviders>
+    <Providers>
       <UserDetailContent username={username} userData={userData} />
-    </ClientProviders>
+    </Providers>
   )
 }
 

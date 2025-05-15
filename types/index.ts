@@ -59,3 +59,8 @@ export interface LoadingSpinnerProps {
   className?: string
   size?: number
 }
+
+export interface UserDetailProps {
+  username: string
+  userData: GithubUser
+}
