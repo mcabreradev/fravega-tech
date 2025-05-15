@@ -163,6 +163,36 @@ To avoid rate limiting, set up your GitHub token as described in the Environment
    - Run `pnpm type-check` to identify type issues
    - Ensure your TypeScript version matches the project's
 
+## TypeScript Type Checking
+
+The project uses TypeScript for type safety. To check for type errors:
+
+```bash
+pnpm type-check
+```
+
+This command:
+- Runs the TypeScript compiler in type-checking mode
+- Checks all TypeScript files in the project
+- Reports any type errors found
+- Does not generate any JavaScript output files
+
+It's recommended to:
+- Run type checking before committing changes
+- Include type checking in your CI/CD pipeline
+- Fix any type errors before merging code
+
+### Common Type Issues
+
+1. Missing type declarations for imported modules
+   - Solution: Install appropriate `@types/*` packages
+
+2. Incompatible prop types in React components
+   - Solution: Check component prop interfaces and make sure they match usage
+
+3. Incorrect generic type parameters
+   - Solution: Verify generic type arguments match expected types
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
