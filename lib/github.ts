@@ -2,7 +2,10 @@ import axios from 'axios'
 
 import { GithubUser, GithubRepo, GithubSearchResults } from '@/types'
 
-const BASE_URL = process.env.NODE_ENV === 'development' ? `${process.env.NEXT_PUBLIC_BASE_URL}` : ''
+const BASE_URL =
+  process.env.NODE_ENV === 'development'
+    ? `${process.env.NEXT_PUBLIC_BASE_URL}`
+    : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
 
 export const fetchUsers = async (page = 1, perPage = 20): Promise<GithubUser[]> => {
   try {
