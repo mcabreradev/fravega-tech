@@ -2,14 +2,11 @@ import axios from 'axios'
 
 import { GithubUser, GithubRepo, GithubSearchResults } from '@/types'
 
-const BASE_URL =
-  process.env.NODE_ENV === 'development'
-    ? `${process.env.NEXT_PUBLIC_BASE_URL}`
-    : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-
 export const fetchUsers = async (page = 1, perPage = 20): Promise<GithubUser[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/users?page=${page}&per_page=${perPage}`)
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users?page=${page}&per_page=${perPage}`
+    )
     return response.data
   } catch (error) {
     console.error('GitHub API Error:', {
@@ -27,7 +24,7 @@ export const searchUsers = async (
 ): Promise<GithubSearchResults> => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/api/users/search?q=${query}&page=${page}&per_page=${perPage}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/search?q=${query}&page=${page}&per_page=${perPage}`
     )
     return response.data
   } catch (error) {
@@ -41,7 +38,7 @@ export const searchUsers = async (
 
 export const fetchUserDetails = async (username: string): Promise<GithubUser> => {
   try {
-    const response = await axios.get(`${BASE_URL}/api/users/${username}`)
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${username}`)
     return response.data
   } catch (error) {
     console.error('GitHub API Error:', {
@@ -60,9 +57,11 @@ export const fetchUserRepos = async (
 ): Promise<GithubRepo[]> => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/api/users/${username}/repos?page=${page}&per_page=${perPage}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${username}/repos?page=${page}&per_page=${perPage}`
     )
-    console.log(`${BASE_URL}/api/users/${username}/repos?page=${page}&per_page=${perPage}`)
+    console.log(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${username}/repos?page=${page}&per_page=${perPage}`
+    )
     return response.data
   } catch (error) {
     console.error('GitHub API Error:', {
