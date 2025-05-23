@@ -8,6 +8,10 @@ const nextConfig = {
     config.cache = false
     return config
   },
+  pageExtensions: ['ts', 'tsx'],
+  experimental: {
+    appDir: false,
+  },
 }
 
 module.exports = nextConfig
